@@ -2,7 +2,14 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { hasEnvVars } from "../utils";
 
+const AUTH_ROUTES = [
+  "/auth/login",
+  "/auth/forgot-password",
+  "/auth/update-password",
+];
+
 export async function updateSession(request: NextRequest) {
+  
   let supabaseResponse = NextResponse.next({
     request,
   });
@@ -47,8 +54,21 @@ export async function updateSession(request: NextRequest) {
   const { data } = await supabase.auth.getClaims();
   const user = data?.claims;
 
-  if (!user) {
-    // no user, potentially respond by redirecting the user to the login page
+  const pathname = request.nextUrl.pathname;
+
+  /**
+   * ✅ BLOCK AUTHENTICATED USERS FROM AUTH PAGES
+   */
+  if (user && AUTH_ROUTES.includes(pathname)) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/admin";
+    return NextResponse.redirect(url);
+  }
+
+  /**
+   * 🔒 PROTECT ADMIN ROUTES
+   */
+  if (!user && pathname.startsWith("/admin")) {
     const url = request.nextUrl.clone();
     url.pathname = "/auth/login";
     return NextResponse.redirect(url);

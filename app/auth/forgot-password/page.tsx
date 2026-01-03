@@ -90,7 +90,7 @@ export default function Page() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full rounded-md bg-black text-white py-2 text-sm font-medium hover:bg-gray-900 transition disabled:opacity-50"
+                className="w-full rounded-md bg-black text-white py-2 text-sm font-medium hover:bg-gray-900 transition disabled:opacity-50 cursor-pointer"
               >
                 {isLoading ? "Sending..." : "Send reset email"}
               </button>

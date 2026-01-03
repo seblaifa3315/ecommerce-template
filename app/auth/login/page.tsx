@@ -5,13 +5,16 @@ import {useRouter} from "next/navigation";
 import {createClient} from "@/lib/supabase/client";
 import Link from "next/link";
 
+
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+    
 
     const router = useRouter();
+
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -42,6 +45,8 @@ export default function LoginPage() {
             <div className="w-full max-w-sm bg-white rounded-lg shadow p-6">
                 <h1 className="text-2xl font-semibold text-gray-900 mb-6 text-center">Admin Login</h1>
                 <p className="mb-4 text-sm text-gray-500">Enter your mail below to login to your accounr</p>
+
+
 
                 <form onSubmit={handleLogin} className="space-y-4">
                     <div>

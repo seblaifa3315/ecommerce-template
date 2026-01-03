@@ -15,6 +15,6 @@ export const config = {
      * - images - .svg, .png, .jpg, .jpeg, .gif, .webp
      * Feel free to modify this pattern to include more paths.
      */
-    "/admin/:path*",
+    "/admin/:path*", "/auth/:path*"
   ],
 };
