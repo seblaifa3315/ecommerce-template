@@ -2,6 +2,8 @@
 
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { LogOut } from "lucide-react";
 
 export function LogoutButton() {
   const router = useRouter();
@@ -9,17 +11,18 @@ export function LogoutButton() {
   const handleLogout = async () => {
     const supabase = createClient();
     await supabase.auth.signOut();
-
-    // middleware will now block /admin
     router.push("/auth/login");
   };
 
   return (
-    <button
+    <Button
+      variant="ghost"
+      size="sm"
       onClick={handleLogout}
-      className="text-sm text-foreground transition cursor-pointer"
+      className="w-full justify-start"
     >
+      <LogOut className="w-4 h-4" />
       Logout
-    </button>
+    </Button>
   );
 }
